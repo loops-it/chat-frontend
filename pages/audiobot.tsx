@@ -42,6 +42,28 @@ const AudioBot = () => {
     textAreaRef.current?.focus();
   }, []);
 
+
+  useEffect(() => {
+    const test = async()=>{
+      const response = await fetch('/api/test', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.status !== 200) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+  
+      const data = await response.json();
+      console.log("data from api/test",data)
+    }
+    test()
+  }, [])
+  
+
   //handle form submission
   async function handleSubmit() {
     // e.preventDefault();
