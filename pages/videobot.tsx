@@ -68,7 +68,7 @@ const Videobot = () => {
 
     setError(null);
     setLoading(true);
-    const response = await fetch('/api/recording', {
+    const response = await fetch('/api/speach_recognition', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ const Videobot = () => {
 
     const data = await response.json();
     const question = data.transcript;
-    
+
     if (!question) {
       alert('Racording failed!');
       setLoading(false);
