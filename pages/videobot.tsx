@@ -68,7 +68,7 @@ const Videobot = () => {
 
     setError(null);
     setLoading(true);
-    const response = await fetch('https://chat-backend-self.vercel.app/recording-start', {
+    const response = await fetch('/api/recording', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -79,9 +79,10 @@ const Videobot = () => {
       const error = await response.json();
       throw new Error(error.message);
     }
-    const data = await response.json();
 
+    const data = await response.json();
     const question = data.transcript;
+    
     if (!question) {
       alert('Racording failed!');
       setLoading(false);
