@@ -23,8 +23,8 @@ export default async function handler(
     }
 
     const data = await response.json();
-    return data
-    // res.status(200).json({ transcript: data.transcript });
+    // return data
+    res.status(200).json({ transcript: data });
   } catch (error) {
     res.status(500).json({ error });
   }
