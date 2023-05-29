@@ -4,10 +4,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== 'POST') {
-    res.status(405).json({ message: 'Method Not Allowed' });
-    return;
-  }
+//   if (req.method !== 'POST') {
+//     res.status(405).json({ message: 'Method Not Allowed' });
+//     return;
+//   }
 
   try {
     const response = await fetch('https://chat-backend-self.vercel.app/recording-start', {
