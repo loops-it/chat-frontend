@@ -12,7 +12,7 @@ export default async function handler(
 // http://localhost:3001/home/recording-start
 
   try {
-    const response = await fetch('https://chat-backend-self.vercel.app/home/recording-start', {
+    const response = await fetch('http://localhost:3001/home/recording-start', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
