@@ -8,6 +8,8 @@ export default async function handler(
 //     res.status(405).json({ message: 'Method Not Allowed' });
 //     return;
 //   }
+// https://chat-backend-self.vercel.app/home/recording-start
+// http://localhost:3001/home/recording-start
 
   try {
     const response = await fetch('https://chat-backend-self.vercel.app/home/recording-start', {
@@ -24,7 +26,7 @@ export default async function handler(
 
     const data = await response.json();
     console.log(data)
-    res.status(200).json({ transcript: data });
+    res.status(200).json({ transcript: data.transcript });
   } catch (error) {
     res.status(500).json({ error });
   }

@@ -37,10 +37,15 @@ const AudioBot = () => {
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [apiMessageFinal, setApiMessageFinal] = useState('');
 
   useEffect(() => {
     textAreaRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    console.log('apiMessageFinal : ',apiMessageFinal)
+  }, [apiMessageFinal, messages]);
 
 
   useEffect(() => {
@@ -84,7 +89,7 @@ const AudioBot = () => {
 
     const data = await response.json();
     const question = data.transcript;
-
+    console.log("transcription : ", question)
 
     if (!question) {
       alert('Racording failed!');
@@ -159,6 +164,7 @@ const AudioBot = () => {
                 pendingSourceDocs: undefined,
               }));
             }
+            setApiMessageFinal(pending ?? '')
             setLoading(false);
             ctrl.abort();
           } else {
@@ -184,6 +190,16 @@ const AudioBot = () => {
     }
   }
 
+  useEffect(() => {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance();
+    utterance.text = apiMessageFinal;
+    const voices = synth.getVoices();
+    utterance.voice = voices[2];
+    synth.speak(utterance);
+
+  }, [apiMessageFinal]);
+
   function speakLastApiMessage(messages: string | any[]) {
     const lastApiMessage = messages[messages.length - 1];
     if (lastApiMessage?.type === 'apiMessage') {
@@ -197,6 +213,19 @@ const AudioBot = () => {
       }
     }
   }
+  // function speakLastApiMessage(messages: string | any[]) {
+  //   const lastApiMessage = messages[messages.length - 1];
+  //   if (lastApiMessage?.type === 'apiMessage') {
+  //     const synth = typeof window !== 'undefined' && window.speechSynthesis;
+  //     if (synth) {
+  //       const utterance = new SpeechSynthesisUtterance();
+  //       utterance.text = lastApiMessage.message;
+  //       const voices = synth.getVoices();
+  //       utterance.voice = voices[2];
+  //       synth.speak(utterance);
+  //     }
+  //   }
+  // }
 
   const chatMessages = useMemo(() => {
     return [
